@@ -17,9 +17,9 @@ public:
     string item_ins;
     void instant();
     void display();
-    int no_items;
-    float total;
-    float discount;
+    int no_items=0;
+    float total=0;
+    float final_p=0;
     float dis;
 };
 
@@ -29,13 +29,15 @@ void customer::instant()
     cin >> no_items;
     for (int i = 0; i < no_items; i++)
     {
-        cout << "Item " << i + 1 << " name and price(with space): ";
-        cin >> b[i].item>>b[i].price>>b[i].qnt;
+        cout << "Item " << i + 1 << ": ";
+        getline(cin,b[i].item);
+        cout<<"Enter price and quantity: ";
+        cin>>b[i].price>>b[i].qnt;
         total=total+b[i].price*b[i].qnt;
     }
     cout<<"Enter the discount(for no discount write 0): ";
     cin>>dis;
-    discount=((100-dis)/total)*100;
+    final_p=total*((100-dis)/100);
 };
 
 void customer::display()
@@ -44,11 +46,12 @@ void customer::display()
     cout<<setw(2)<<"S. no."<<setw(15)<<"Item"<<setw(25)<<"Price"<<setw(35)<<"qantity";
     for (int i = 0; i < no_items; i++)
     {
-        cout<<"\n"<<setw(2)<<(i+1)<<setw(15)<<b[i].item<<setw(25)<<b[i].price<<setw(35)<<b[i].qnt;
+        cout<<"\n"<<(i+1)<<setfill(' ')<<setw(20+sizeof(b[i].item));
+        cout<<b[i].item<<setfill(' ')<<setw(10)<<b[i].price<<setfill(' ')<<setw(10)<<b[i].qnt;
     }
     cout<<"\nTotal:  "<<total;
     cout<<"\ndiscount: "<<dis;
-    cout<<"\nNet Amount: "<<discount;
+    cout<<"\nNet Amount: "<<final_p;
 }
 
 int main()
