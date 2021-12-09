@@ -1,18 +1,44 @@
-#include<iostream>
-#include<algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
+class ts
+{
+public:
+       struct test
+       {
+              string name2;
+              int check;
+       } b[100];
+       void input();
+       void display();
+
+};
+
+void ts::input()
+{
+       for (int i = 0; i < 2; i++)
+       {
+              cin.ignore();
+              getline(cin, b[i].name2); 
+              cin>>b[i].check;// for input
+              /* code */
+       }
+}
+
+void ts::display()
+{
+       for (int i = 0; i < 2; i++)
+       {
+              cout << b[i].name2; // for printing
+              cout<<b[i].check;// for input
+              /* code */
+       }
+}
 
 int main()
 {
-       int arr[]={1,3,4,5,6,8,9,6,2,3,4,2,4,5};
-       int n = sizeof(arr)/sizeof(arr[0]);
-       sort(arr, arr+n, greater<int>());
-       cout<<endl;
-       for (int i = 0; i < n; i++)
-       {
-              cout<<arr[i]<<" ";
-       }
-       
-       return 0;
+
+       ts c;
+       c.input();
+       c.display();
+       return 0; // for printing
 }
