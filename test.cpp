@@ -7,7 +7,7 @@ using namespace std;
 
 class cl{
     public:
-      string tt, temp;
+      string tt="", temp;
       float price;
       void getdata();
       void storedata();
@@ -17,11 +17,13 @@ void cl::getdata(){
     cout<<"\nEnter element: ";
     getline(cin, tt);
     cout<<"\nEnter price: ";
+    cin>>price;
+    cin.ignore();
 }
 
 void cl::storedata(){
     cout<<"\nEnter the data: ";
-    getline(cin, temp)
+    getline(cin, temp);
 }
 
 const char *filename = "temprary.txt";
@@ -32,20 +34,19 @@ bool isEmpty(ifstream& pfile){
 
 int main()
 {
-    cout<<setw(70)<<setfill('-')<<"";
     cl c;
-    fstream f;
-    f.open(filename,ios::in | ios::out | ios::binary);
-    f.clear();
-    f.seekp(0,ios::end);
-    c.getdata();
-    f.write((char *)&c, sizeof(c));
-    f.clear();
-    c.getdata();
-    f.write((char *)&c, sizeof(c));
-    f.clear();
-    c.storedata();
-    f.close();
-
+    ifstream file(filename);
+    fstream file2(filename);
+    // file2.seekp(0, ios::end);
+    // c.getdata(); 
+    // file2.write((char *)&c, sizeof(c));
+    file.clear();
+    file.open(filename,ios::out | ios::in | ios::trunc);
+    if(c.tt=="")
+        cout<<"Empty";
+    else
+        cout<<"not empty";
+    cout<<c.tt;
+    file.close();
     return 0;
 }
