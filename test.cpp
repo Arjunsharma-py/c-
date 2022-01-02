@@ -2,6 +2,7 @@
 #include<fstream>
 #include<iomanip>
 #include<string>
+#include<conio.h>
 
 using namespace std;
 
@@ -26,15 +27,20 @@ void cl::storedata(){
     getline(cin, temp);
 }
 
-const char *filename = "temprary.txt";
+const char *filename = "hi.txt";
 
 bool isEmpty(ifstream& pfile){
     return pfile.peek() == ifstream::traits_type::eof();
 }
 
+void clr(){
+    cout << "\033[2J\033[1;1H";
+}
+
 int main()
 {
     cl c;
+    
     ifstream file(filename);
     fstream file2(filename);
     // file2.seekp(0, ios::end);
@@ -48,5 +54,6 @@ int main()
         cout<<"not empty";
     cout<<c.tt;
     file.close();
+    clr();
     return 0;
 }
