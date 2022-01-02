@@ -47,20 +47,20 @@ void customer::displaydata(int recordNo)
     if (recordNo == 0)
     {
         fstream file2(filename2);
-        cout << setw(70) << setfill('-') << "" << endl;
+        cout <<endl << setw(70) << setfill('-') << "" << endl;
         string tp;
         getline(file2, tp);
         cout << tp;
         cout << endl << setw(70) << setfill('-') << "";
-        cout << "S. no." << setw(15) << "Item" << setw(10) << "price" << setw(10) << "quantity" << setw(10) << "Value" << endl;
+        cout << endl << "S. no." << setw(15) << "Item" << setw(10) << "price" << setw(10) << "quantity" << setw(10) << "Value" << endl;
     }
-    cout << recordNo + 1 << "     " << setw(15) << item << setw(10) << price << setw(10) << quat << setw(10) << quat * price << endl;
+    cout << recordNo + 1 << "     " << setw(15) << tempItem << setw(10) << price << setw(10) << quat << setw(10) << quat * price << endl;
 }
 
 void customer::erase()
 {
     ofstream f;
-    f.open("itemlist.txt",ios::out | ios::trunc);
+    f.open("itemlist.txt", ios::trunc);
     f.close();
 }
 
@@ -86,12 +86,14 @@ int main()
     do
     {
         temp = 0, temp2 = 0;
+        file2.open(filename2, ios::in);
         cout <<endl<< setw(70) << setfill('-') << "" << endl;
         string tp;
         getline(file2, tp);
         cout << tp;
+        file2.close();
         cout << endl
-             << setw(70) << setfill('-') << "";
+             << setw(70) << setfill('-') << ""<<setfill(' ');
         cout << "\n\n*******Menu********";
         cout << endl
              << "Enter your option";
@@ -116,7 +118,6 @@ int main()
         {
         case 1:
         {
-            system("cls");
             file.seekg(0,ios::beg);
             file.read((char *)&cus,sizeof(cus));
             if (cus.item=="")
@@ -129,7 +130,9 @@ int main()
             {
                 fstream f1;
                 int x = 0;
-                f1.open("temprary.txt", ios::out | ios::binary | ios::trunc | ios::ate);
+                f1.open("temprary.txt", ios::out | ios::trunc);
+                f1.close();
+                f1.open("temprary.txt", ios::out | ios::binary | ios::in | ios::ate);
                 f1.clear();
                 f1.seekp(0, ios::end);
                 while (true)
@@ -150,17 +153,25 @@ int main()
                 cout<<c.tempItem;
                 while (!f1.eof())
                 {
-                    cout<<"Not Working";
                     file.seekg(0, ios::beg);
                     file.clear();
                     file.read((char *)&cus, sizeof(cus));
                     while (!file.eof())
                     {
-                        cout<<"working";
                         if (c.tempItem == cus.item)
                         {
-                            cus.displaydata(x);
-                            total = total + cus.price;
+                            if (x == 0)
+                            {
+                                fstream file2(filename2);
+                                cout <<endl << setw(70) << setfill('-') << "" << endl;
+                                string tp;
+                                getline(file2, tp);
+                                cout << tp;
+                                cout << endl << setw(70) << setfill('-') << "";
+                                cout << endl << setfill(' ')<< "S. no." << setw(15) << "Item" << setw(10) << "price" << setw(10) << "quantity" << setw(10) << "Value" << endl;
+                            }
+                            cout << x + 1 << "     " << setw(15) << c.tempItem << setw(10) << cus.price << setw(10) << c.quat << setw(10) << c.quat * cus.price << endl;
+                            total = total + cus.price*c.quat;
                             x++;
                             break;
                         }
@@ -174,8 +185,6 @@ int main()
             }
         }
         case 2:
-
-            system("cls");
             cout << "working";
             file.seekp(0, ios::end);
             file.clear();
@@ -190,7 +199,6 @@ int main()
 
         case 5:
         {
-            system("cls");
             cus.Shop();
             cout << "\nShop name changed successfully!\nPress any key...";
             getchar();
@@ -198,7 +206,6 @@ int main()
         }
         case 4:
         {
-            system("cls");
             cus.erase();
             cout << "\nAll items deleted successfully\nPress any key...";
             getchar();
@@ -206,6 +213,7 @@ int main()
         }
         case 6:
         {
+            file.clear();
             file.seekg(0,ios::beg);
             file.read((char *)&cus, sizeof(cus));
             while (!file.eof())
