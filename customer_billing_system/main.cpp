@@ -18,7 +18,6 @@ public:
     void erase();
     void storeddata();
     void Shop();
-    void update(int, int);
 };
 
 bool isEmpty(fstream &pfile)
@@ -36,7 +35,7 @@ void customer::storeddata()
     {
         cout << "Enter the price: ";
         cin >> price;
-        cout << "Enter the stock quantity";
+        cout << "Enter the stock quantity: ";
         cin >> avail;
         cin.ignore();
     }
@@ -76,27 +75,11 @@ void customer::Shop()
     file2.close();
 }
 
-void customer::update(int x, int y)
-{
-    customer cl;
-    int location = (x - 1) * sizeof(cl);
-    fstream file;
-    file.open(filename, ios::in | ios::out);
-    file.seekp(location, ios::beg);
-    cl.item = cl.item;
-    cl.price = cl.price;
-    cl.avail = cl.avail - y;
-    cout << endl
-         << cl.avail << endl
-         << cl.item << cl.price << y << x;
-    file.write((char *)&cl, sizeof(cl));
-    file.close();
-}
 
 int main()
 {
     customer cus, c;
-    int choice, disc, temp, temp2;
+    int choice;
     float total = 0;
     fstream file(filename), file2(filename2);
     if (isEmpty(file2))
@@ -105,15 +88,41 @@ int main()
     {
         cout << "\033[2J\033[1;1H";
         string tp;
-        temp = 0, temp2 = 0;
+        int temp = 0, temp2 = 0, isfound=0,found=0, disc=0;
         file2.open(filename2, ios::in);
         cout << endl
              << setw(70) << setfill('-') << "" << endl;
         getline(file2, tp);
         cout << setfill(' ') << setw(39) << tp;
-        file2.close();
         cout << endl
              << setw(70) << setfill('-') << "" << setfill(' ');
+        file2.close();
+        file.clear();
+        file.seekg(0, ios::beg);
+        file.read((char *)&cus, sizeof(cus));
+        while (!file.eof())
+        {
+            found=1;
+            if(temp2==0)
+            {
+                cout<<"\nStatus:-\n";
+            }
+            if(cus.avail==0)
+            {
+                cout<<cus.item<<": Out of stock\n";
+                isfound=1;
+            }
+            else if (cus.avail<=3)
+            {
+                cout<<cus.item<<": only "<<cus.avail<<" left\n";
+                isfound=1;
+            }
+            file.read((char *)&cus, sizeof(cus));
+            temp2++;
+        }
+        if(isfound==0 && found==1)
+            cout<<"All items are available\n";
+        file.clear();
         cout << "\n\n*******Menu********";
         cout << endl
              << "Enter your option";
@@ -139,6 +148,7 @@ int main()
         case 1:
         {
             cout << "\033[2J\033[1;1H";
+            total=0;
             file.open(filename, ios::in | ios::out);
             file.clear();
             file.seekg(0, ios::beg);
@@ -284,16 +294,16 @@ int main()
         {
             fstream f;
             int record;
-            cout<<"Enter the S. no.: ";
-            cin>>record;
+            cout << "Enter the S. no.: ";
+            cin >> record;
             f.open(filename, ios::in | ios::out);
             f.clear();
             int location = (record - 1) * sizeof(cus);
             f.seekp(location, ios::beg);
             f.read((char *)&cus, sizeof(cus));
             f.seekp(location, ios::beg);
-            cout<<"Enter new stock: ";
-            cin>>cus.avail;
+            cout << "Enter new stock: ";
+            cin >> cus.avail;
             f.write((char *)&cus, sizeof(cus));
             f.seekp(location, ios::beg);
             f.clear();
