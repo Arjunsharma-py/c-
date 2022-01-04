@@ -9,7 +9,7 @@ using namespace std;
 class cl{
     public:
       string tt="", temp;
-      float price;
+      float price, quat;
       void getdata();
       void storedata();
 };
@@ -25,6 +25,8 @@ void cl::getdata(){
 void cl::storedata(){
     cout<<"\nEnter the data: ";
     getline(cin, temp);
+    cin>>quat;
+    cin.ignore();
 }
 
 const char *filename = "hi.txt";
@@ -40,20 +42,9 @@ void clr(){
 int main()
 {
     cl c;
+    fstream file(filename);
+    c.storedata();
     
-    ifstream file(filename);
-    fstream file2(filename);
-    // file2.seekp(0, ios::end);
-    // c.getdata(); 
-    // file2.write((char *)&c, sizeof(c));
-    file.clear();
-    file.open(filename,ios::out | ios::in | ios::trunc);
-    if(c.tt=="")
-        cout<<"Empty";
-    else
-        cout<<"not empty";
-    cout<<c.tt;
-    file.close();
-    clr();
+    
     return 0;
 }

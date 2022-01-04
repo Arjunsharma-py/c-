@@ -61,7 +61,7 @@ int main()
 {
     Employee emp, e;
     char option, ch, Dept[50];
-    int ID, isFound;
+    int ID, isFound,recordNo;
     system("cls");
     fstream file;
     file.open(fileName, ios::ate | ios::in | ios::out | ios::binary);
@@ -89,6 +89,7 @@ int main()
         switch (option)
         {
         case 1:
+        {
             emp.ReadData();
             file.seekg(0, ios::beg);
             isFound = 0;
@@ -111,8 +112,9 @@ int main()
             cout << endl
                  << "New record has been added successfully...";
             break;
-
+        }
         case 2:
+        {
             isFound = 0;
             cout << endl
                  << "Enter ID of an employee to be searched:";
@@ -138,7 +140,9 @@ int main()
                 cout << endl
                      << "Data not found for employee ID#" << ID;
             break;
+        }
         case 3:
+        {
             isFound = 0;
             cout << "Enter department name to list employee within it:";
             cin >> Dept;
@@ -164,8 +168,9 @@ int main()
                 cout << endl
                      << "Data not found for department" << Dept;
             break;
-
+        }
         case 4:
+        {
             cout << endl
                  << "Record for employee";
             file.clear();
@@ -187,8 +192,9 @@ int main()
                  << counter << "records found......";
             file.clear();
             break;
-
+        }
         case 5:
+        {
             int recordNo = 0;
             cout << endl
                  << "File is being modified....";
@@ -221,14 +227,15 @@ int main()
             int location = (recordNo - 1) * sizeof(e);
             file.seekp(location, ios::beg);
             {
-            cout << endl
-                 << "Enter new record for employee having ID" << ID;
-            e.ReadData();
+                cout << endl
+                     << "Enter new record for employee having ID" << ID;
+                e.ReadData();
             }
             file.write((char *)&e, sizeof(e));
             break;
-
+        }
         case 6:
+        {
             recordNo = 0;
             cout << endl
                  << "Enter employment ID to be deleted:";
@@ -274,7 +281,7 @@ int main()
                 temp.read((char *)&e, sizeof(e));
                 while (!temp.eof())
                 {
-                    file.write(( char *)&e, sizeof(e));
+                    file.write((char *)&e, sizeof(e));
                     temp.read((char *)&e, sizeof(e));
                 }
             }
@@ -283,11 +290,12 @@ int main()
             remove(tempFile);
             file.open(fileName, ios::ate | ios::in | ios::out | ios::binary);
             break;
-
+        }
         case 7:
+        {
             exit(0);
             break;
-
+        }
         default:
             cout << "Invalid Options";
         }
