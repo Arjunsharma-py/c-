@@ -93,7 +93,7 @@ int main()
         cout << endl
              << setw(70) << setfill('-') << "" << endl;
         getline(file2, tp);
-        cout << setfill(' ') << setw(39) << tp;
+        cout << setfill(' ') << setw(35+((sizeof(tp)/2))) << tp;
         cout << endl
              << setw(70) << setfill('-') << "" << setfill(' ');
         file2.close();
@@ -107,12 +107,12 @@ int main()
             {
                 cout<<"\nStatus:-\n";
             }
-            if(cus.avail==0)
+            if(cus.avail<=0)
             {
                 cout<<cus.item<<": Out of stock\n";
                 isfound=1;
             }
-            else if (cus.avail<=3)
+            else if (cus.avail<=3 && cus.avail>0)
             {
                 cout<<cus.item<<": only "<<cus.avail<<" left\n";
                 isfound=1;
@@ -201,7 +201,7 @@ int main()
                                      << setw(52) << setfill('_') << "" << endl;
                                 string tp;
                                 getline(file2, tp);
-                                cout << setfill(' ') << setw(30) << tp;
+                                cout << setfill(' ') << setw(26+((sizeof(tp)/2))) << tp;
                                 cout << endl
                                      << setw(52) << setfill('_') << "";
                                 cout << "\n\n"
@@ -232,7 +232,7 @@ int main()
                 f1.close();
                 cout << setw(52) << setfill('-') << "" << setfill(' ');
                 cout << "\nTotal:" << setw(45) << total << "\nDiscout:" << setw(43) << disc << "\nNet Amount:" << setw(40) << ((total / 100) * (100 - disc));
-                cout << "\n\nThank you for shopping \nHave a nice day\nPress any key...";
+                cout << "\n\n"<<setw(37)<<"Thank you for visiting"<<"\n\n"<<setw(32)<<"Have a nice day\nPress any key...";
                 getchar();
                 break;
             }
