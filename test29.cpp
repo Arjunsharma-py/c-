@@ -94,18 +94,18 @@ int main()
 {
     customer cus, c;
     int choice, disc, temp, temp2;
-    float total;
+    float total=0;
     fstream file(filename), file2(filename2);
     if (isEmpty(file2))
         cus.Shop();
     do
     {
         cout << "\033[2J\033[1;1H";
+        string tp;
         temp = 0, temp2 = 0;
         file2.open(filename2, ios::in);
         cout << endl
              << setw(70) << setfill('-') << "" << endl;
-        string tp;
         getline(file2, tp);
         cout <<setfill(' ')<<setw(39)<< tp;
         file2.close();
@@ -136,6 +136,8 @@ int main()
         case 1:
         {
             cout << "\033[2J\033[1;1H";
+            file.open(filename,ios::in | ios::out);
+            file.clear();
             file.seekg(0, ios::beg);
             file.read((char *)&cus, sizeof(cus));
             if (cus.item == "")
@@ -237,12 +239,20 @@ int main()
         }
         case 6:
         {
+            cout << "\033[2J\033[1;1H";
+            int t=0;
             file.clear();
             file.seekg(0, ios::beg);
             file.read((char *)&cus, sizeof(cus));
             while (!file.eof())
             {
-                cout << "\nItem: " << cus.item << "\nPrice: " << cus.price;
+                if(t==0)
+                {
+                    cout << setw(52) << setfill('-') << "";
+                    cout << "\n" << setfill(' ') << "S. no." << setw(15) << "Item" << setw(10) << "price" << endl <<setw(52)<<setfill('-')<<""<<setfill(' ')<<endl;
+                }
+                cout << t + 1 << "     " << setw(15) << cus.item << setw(10) << cus.price << endl;
+                t++;       
                 file.read((char *)&cus, sizeof(cus));
             }
             cout << "\nPress any key...";
