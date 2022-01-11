@@ -293,7 +293,7 @@ int main()
         case 3:
         {
             fstream f;
-            int record;
+            int record, y;
             cout << "Enter the S. no.: ";
             cin >> record;
             f.open(filename, ios::in | ios::out);
@@ -301,9 +301,11 @@ int main()
             int location = (record - 1) * sizeof(cus);
             f.seekp(location, ios::beg);
             f.read((char *)&cus, sizeof(cus));
+            y = cus.avail;
             f.seekp(location, ios::beg);
             cout << "Enter new stock: ";
             cin >> cus.avail;
+            cus.avail =cus.avail+y;
             f.write((char *)&cus, sizeof(cus));
             f.seekp(location, ios::beg);
             f.clear();
