@@ -20,17 +20,33 @@ for i in range(row2):
         col.append(a)
     arr2.append(col)
 
+c = []
 
-c = [[0]*col2]*row1
+for i in range(col1):
+    col = []
+    for j in range(row2):
+        col.append(0)
+    c.append(col)
 
+for i in c:
+    print(i)
+
+print("\n")
 
 if col1 == row2:
-    for i in range(len(arr)):
-        for j in range(len(arr2[0])):
-            for k in range(len(arr2)):
-                c[i][j] += arr[i][k] * arr2[k][j]
+    for i in range(0,len(arr)):
+        for j in range(0,len(arr2[0])):
+            for k in range(0,len(arr2)):
+                c[i][j] += arr[i][k-1] * arr2[k-1][j]
 else:
     print("Multiplication of these two matrices is not possible")
+
+print("\n")
+for i in arr:
+    print(i)
+
+for i in arr2:
+    print(i)
 
 for i in c:
     print(i)

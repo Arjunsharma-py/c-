@@ -1,17 +1,42 @@
-row1, row2, col1, col2 = 2,2,2,4
-arr=[[2,1],
-    [3,4]]
+import sys
+import pygame
 
-arr2 = [[2,1,1,2],[3,3,2,2]]
+pygame.init()
 
+size = width, height = 1330,695
 
-c = [[0]*col2]*row1
+speed = [5, 5]
 
-for i in range(len(arr)):
-    for j in range(len(arr2[0])):
-        for k in range(len(arr2)):
-            c[i][j] += arr[i][k] * arr2[k][j]
+background = 255, 255, 255
 
+screen = pygame.display.set_mode(size)
 
-for i in c:
-    print(i)
+pygame.display.set_caption("Bouncing ball")
+
+ball = pygame.image.load("ball.jpg")
+
+ballrect = ball.get_rect()
+
+while 1:
+
+    for event in pygame.event.get():
+
+        if event.type == pygame.QUIT:
+
+            sys.exit()
+
+    ballrect = ballrect.move(speed)
+
+    if ballrect.left < 0 or ballrect.right > width:
+
+        speed[0] = -speed[0]
+
+    if ballrect.top < 0 or ballrect.bottom > height:
+
+        speed[1] = -speed[1]
+
+    screen.fill(background)
+
+    screen.blit(ball, ballrect)
+
+    pygame.display.flip()

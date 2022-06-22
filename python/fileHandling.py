@@ -1,5 +1,6 @@
 with open('Handling.txt', 'r') as file :
     temp = []
+    list = []
     count, great, grt = 0, 0, 0
     data = file.readlines()
     for line in data:
@@ -15,4 +16,5 @@ with open('Handling.txt', 'r') as file :
         if grt<count:
             grt = count
             great = temp[i]
-    print(great)
+        
+    print("'", great ,"' has maximum", grt, "times count")
